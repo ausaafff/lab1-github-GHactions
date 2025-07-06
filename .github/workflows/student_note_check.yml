@@ -1,0 +1,37 @@
+name: Student Note Workflow
+
+on:
+  push:
+    paths:
+      - 'student_note.md'
+  pull_request:
+    paths:
+      - 'student_note.md'
+
+env:
+  STUDENT_USERNAME: ausaafff
+  REPO_NAME: lab1-github-GHactions
+
+jobs:
+  print-info:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Print Repository and Student Information
+        run: |
+          echo "=== Repository and Student Information ==="
+          echo "Repository Name: $REPO_NAME"
+          echo "Student Username: $STUDENT_USERNAME"
+          echo "GitHub Repository: ${{ github.repository }}"
+          echo "Workflow triggered by: ${{ github.actor }}"
+          echo "Event: ${{ github.event_name }}"
+          echo "Ref: ${{ github.ref }}"
+          echo "=========================================="
+      
+      - name: Display student_note.md content
+        run: |
+          echo "Contents of student_note.md:"
+          cat student_note.md
